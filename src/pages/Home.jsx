@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import useFetchMovies from '../hooks/use-FetchData';
 const url =
@@ -19,6 +20,7 @@ const url =
 // vote_count: 3069
 const Home = () => {
 	const data = useFetchMovies(url);
+	const navigate = useNavigate();
 	const movies = data.movies;
 	const { addMovie, isUserLoggedIn, favouriteMovie } = useAuthContext();
 
@@ -35,6 +37,7 @@ const Home = () => {
 					<button
 						onClick={() => {
 							addMovie(movie);
+							navigate('/favs', { push: true });
 						}}
 					>
 						Add to Favourites

@@ -7,8 +7,13 @@ const AuthProvider = props => {
 	const [token, setToken] = useState(initialToken);
 	const isUserLoggedIn = !!token;
 	const addMovie = movie => {
-		setfavouriteMovie(prev => [movie, ...prev]);
+		if (favouriteMovie.find(favmovie => favmovie.id === movie.id)) {
+			removeMovie(movie);
+		} else {
+			setfavouriteMovie(prev => [movie, ...prev]);
+		}
 	};
+
 	const removeMovie = movie => {
 		const filteredMovie = favouriteMovie.filter(filmovie => {
 			return movie !== filmovie;
