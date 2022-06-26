@@ -20,7 +20,7 @@ const url =
 const Home = () => {
 	const data = useFetchMovies(url);
 	const movies = data.movies;
-	const { addMovie } = useAuthContext();
+	const { addMovie, isUserLoggedIn } = useAuthContext();
 	const renderMovies = movies.map((movie, index) => {
 		const imagePath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 		return (
@@ -30,13 +30,15 @@ const Home = () => {
 				<p>{movie.overview}</p>
 				<h4>{movie.release_date}</h4>
 				<h4>{movie.popularity}</h4>
-				<button
-					onClick={() => {
-						addMovie(movie);
-					}}
-				>
-					Add to Favourites
-				</button>
+				{isUserLoggedIn && (
+					<button
+						onClick={() => {
+							addMovie(movie);
+						}}
+					>
+						Add to Favourites
+					</button>
+				)}
 			</div>
 		);
 	});
