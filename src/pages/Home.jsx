@@ -20,7 +20,8 @@ const url =
 const Home = () => {
 	const data = useFetchMovies(url);
 	const movies = data.movies;
-	const { addMovie, isUserLoggedIn } = useAuthContext();
+	const { addMovie, isUserLoggedIn, favouriteMovie } = useAuthContext();
+
 	const renderMovies = movies.map((movie, index) => {
 		const imagePath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 		return (

@@ -7,12 +7,13 @@ const AuthProvider = props => {
 	const [token, setToken] = useState(initialToken);
 	const isUserLoggedIn = !!token;
 	const addMovie = movie => {
-		if (favouriteMovie.includes(movie)) {
-			console.log('This movies Already exists');
-		} else {
-			setfavouriteMovie(movie);
-			localStorage.setItem('movie', favouriteMovie);
-		}
+		setfavouriteMovie(prev => [movie, ...prev]);
+	};
+	const removeMovie = movie => {
+		const filteredMovie = favouriteMovie.filter(filmovie => {
+			return movie !== filmovie;
+		});
+		setfavouriteMovie(filteredMovie);
 	};
 	const login = token => {
 		localStorage.setItem('userToken', token);
@@ -28,6 +29,8 @@ const AuthProvider = props => {
 		login,
 		logOut,
 		addMovie,
+		favouriteMovie,
+		removeMovie,
 	};
 	return <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>;
 };
